@@ -1,13 +1,8 @@
 import streamlit as st
 from services.audio_service import save_audio_review
+from services.tag_service import fetch_rating_tags
 
-ALL_TAGS = [
-    "VIP Customer",
-    "Resolved",
-    "Escalation",
-    "Follow Up",
-    "Training Example"
-]
+ALL_TAGS = fetch_rating_tags()
 
 def audio_card(audio):
     st.markdown("---")
