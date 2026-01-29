@@ -77,5 +77,6 @@ def audio_card(audio):
     st.button(
         "💾 Save Changes",
         disabled=True,
-        help="Database integration coming soon"
+        help="Database integration coming soon",
+        key=f"save_{audio['id']}"
     )
