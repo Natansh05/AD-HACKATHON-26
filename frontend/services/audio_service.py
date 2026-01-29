@@ -58,8 +58,8 @@ def save_audio_review(audio_id, rating, feedback, quality_tags):
     }
 
     payload = {
-        "rating": rating,
-        "feedback": feedback,
+        "score": rating,
+        "comment": feedback,
         "tags": quality_tags
     }
 
