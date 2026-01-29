@@ -1,0 +1,66 @@
+# ----------------------------
+# Python
+# ----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# ----------------------------
+# Virtual Environments
+# ----------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# ----------------------------
+# Streamlit
+# ----------------------------
+.streamlit/secrets.toml
+.streamlit/cache/
+.streamlit/.cache/
+
+# Streamlit runtime cache (newer versions)
+.streamlit/**/__pycache__/
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# OS files
+# ----------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ----------------------------
+# Editors / IDEs
+# ----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ----------------------------
+# Testing / Coverage
+# ----------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ----------------------------
+# Env files (never commit)
+# ----------------------------
+.env
+.env.*
+
+# ----------------------------
+# Build / dist
+# ----------------------------
+build/
+dist/
+*.egg-info/
