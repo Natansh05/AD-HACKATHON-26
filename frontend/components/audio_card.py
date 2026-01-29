@@ -13,54 +13,35 @@ ALL_TAGS = [
 
 def audio_card(audio):
     st.markdown("---")
-    st.markdown(f"### {audio['id']}")
+    st.markdown(f"### 🎵 {audio['id']}")
 
-    # -------- TOP ROW (Player + Info Box) --------
-    left, right = st.columns([2, 3])
+    left, right = st.columns(2)
 
+    # -------- LEFT: AUDIO --------
     with left:
-        # Smaller audio player (Streamlit auto-sizes to column)
-        st.audio(audio["playback_url"])
+        with st.container(border=True):
+            st.audio(audio["playback_url"])
 
+    # -------- RIGHT: INLINE DETAILS --------
     with right:
         with st.container(border=True):
-            st.markdown("#### Details")
+            meta1, meta2, meta3 = st.columns([1, 1, 1])
 
-            # Language & Date (uneditable)
-            st.text_input(
-                "Language",
-                audio["language"].upper(),
-                disabled=True,
-                key=f"lang_{audio['id']}"
-            )
+            with meta1:
+                st.markdown(f"🌐 **{audio['language'].upper()}**")
 
-            st.text_input(
-                "Date",
-                audio["date"],
-                disabled=True,
-                key=f"date_{audio['id']}"
-            )
+            with meta2:
+                st.markdown(f"📅 **{audio['date']}**")
 
-            # Rating textbox (0–5 inclusive)
-            rating = st.number_input(
-                "Rating (0–5)",
-                min_value=0,
-                max_value=5,
-                step=1,
-                value=audio["rating"],
-                key=f"rating_{audio['id']}"
-            )
+            with meta3:
+                # Editable rating input as text field
+                audio["rating"] = st.text_input(
+                    "⭐ Rating", 
+                    value=str(audio["rating"]),  # make sure it initializes with the current rating value
+                    key=f"rating_{audio['id']}"
+                )
 
-            # Review (editable, short)
-            review = st.text_area(
-                "Review",
-                audio.get("review", ""),
-                height=80,
-                key=f"review_{audio['id']}"
-            )
-
-    # -------- BOTTOM SECTION --------
-
+    # -------- BOTTOM --------
     st.text_area(
         "Feedback",
         audio["feedback"],
@@ -77,6 +58,6 @@ def audio_card(audio):
     st.button(
         "💾 Save Changes",
         disabled=True,
-        help="Database integration coming soon",
-        key=f"save_{audio['id']}"
+        key=f"save_{audio['id']}",
+        help="Database integration coming soon"
     )
