@@ -35,8 +35,8 @@ def fetch_audios():
                 "language": item.get("language", {}).get("code"),
                 "date": item.get("call_date", "")[:10],
                 "playback_url": item.get("audio_url"),
-                "feedback": "",
-                "rating": 0 if not item.get("is_rated") else item.get("ratings_count", 0),
+                "feedback": item.get("comment", ""),
+                "rating": 0 if not item.get("is_rated") else item.get("score", 0),
                 "quality_tags": item.get("tags", [])
             })
 
