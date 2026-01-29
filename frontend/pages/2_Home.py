@@ -24,7 +24,10 @@ if not is_authenticated() and "token" in params:
     set_auth(
         access_token=params["token"],
         refresh_token=None,
-        user={"username": "restored-user", "role": "user"}
+        user={
+            "username": "restored-user",
+            "role": "user"
+        }
     )
 
 # ---------------- AUTH GUARD ----------------
@@ -38,7 +41,7 @@ st.title("🎧 Review Call Recordings")
 st.caption(f"Logged in as **{user['username']}** ({user['role']})")
 
 if st.button("Logout", key="logout_button"):
-    st.query_params.clear()  # clear URL token
+    st.query_params.clear()
     logout()
     st.switch_page("pages/1_Login.py")
 
@@ -48,7 +51,7 @@ audios = fetch_audios()
 # ---------------- FILTERS ----------------
 st.markdown("## 🔍 Search & Filters")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     search_id = st.text_input("Search by Audio ID")
@@ -66,6 +69,13 @@ with col3:
         value=None
     )
 
+with col4:
+    is_rated_filter = st.selectbox(
+        "Is Rated?",
+        options=["No", "Yes"],
+        index=0   # Default = No
+    )
+
 # ---------------- FILTER LOGIC ----------------
 filtered_audios = []
 
@@ -77,6 +87,12 @@ for audio in audios:
         continue
 
     if selected_date and audio["date"] != selected_date.isoformat():
+        continue
+
+    if is_rated_filter == "Yes" and not audio.get("is_rated", False):
+        continue
+
+    if is_rated_filter == "No" and audio.get("is_rated", False):
         continue
 
     filtered_audios.append(audio)

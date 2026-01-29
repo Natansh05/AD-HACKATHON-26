@@ -1,4 +1,5 @@
 import streamlit as st
+from services.audio_service import save_audio_review
 
 ALL_TAGS = [
     "clear",
@@ -55,9 +56,18 @@ def audio_card(audio):
         key=f"tags_{audio['id']}"
     )
 
-    st.button(
-        "💾 Save Changes",
-        disabled=True,
-        key=f"save_{audio['id']}",
-        help="Database integration coming soon"
-    )
+    if st.button("💾 Save Changes", key=f"save_{audio['id']}"):
+        with st.spinner("Saving..."):
+            
+            success, message = save_audio_review(
+                audio_id=audio["id"],
+                rating=st.session_state[f"rating_{audio['id']}"],
+                feedback=st.session_state[f"feedback_{audio['id']}"],
+                quality_tags=st.session_state[f"tags_{audio['id']}"]
+            )
+
+            if success:
+                st.success("Saved successfully ")
+            else:
+                st.error(f"Failed to save : {message}")
+
