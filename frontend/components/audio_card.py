@@ -2,14 +2,11 @@ import streamlit as st
 from services.audio_service import save_audio_review
 
 ALL_TAGS = [
-    "clear",
-    "balanced",
-    "no-noise",
-    "background-noise",
-    "audible",
-    "studio-quality",
-    "crisp",
-    "professional"
+    "VIP Customer",
+    "Resolved",
+    "Escalation",
+    "Follow Up",
+    "Training Example"
 ]
 
 def audio_card(audio):
